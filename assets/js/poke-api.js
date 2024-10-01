@@ -17,10 +17,24 @@ function convertPokeApiDetailToPokemon(pokeDetail) {
     return pokemon
 }
 
+function convertPokeApiIdToPokemon(pokemonPokeApi) {
+    const pokemon = new Pokemon();
+    pokemon.number = pokemonPokeApi.id;
+    pokemon.name = pokemonPokeApi.forms[0].name;
+    pokemon.stats = pokemonPokeApi.stats;
+}
+
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)
         .then((response) => response.json())
         .then(convertPokeApiDetailToPokemon)
+}
+
+pokeApi.getPokemonId = (id) => {
+    return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then((response) => response.json())
+            .then(convertPokeApiIdToPokemon)
+            .then((pokemonModel) => pokemonModel);
 }
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {

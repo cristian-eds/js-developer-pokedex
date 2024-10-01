@@ -1,13 +1,11 @@
 const pokemonList = document.getElementById('pokemonList')
 const loadMoreButton = document.getElementById('loadMoreButton')
+const modal = document.getElementById('modal');
 
 const maxRecords = 151
 const limit = 10
 let offset = 0;
 
-function testeClique() {
-    alert("teste clique")
-}
 
 function convertPokemonToLi(pokemon) {
     return `
@@ -35,7 +33,10 @@ function loadPokemonItens(offset, limit) {
 
         const pokemonsArray = Array.from(document.getElementsByClassName("pokemon"));
         pokemonsArray.forEach((element) => {
-            element.addEventListener('click', ()=> console.log('clic'))
+            element.addEventListener('click', ()=> {
+                modal.classList.remove('hide');
+                pokeApi.getPokemonId(element.getAttribute('id').split('-')[1]).then((pokemon) => console.log(pokemon));
+            })
         })
     })
 }
