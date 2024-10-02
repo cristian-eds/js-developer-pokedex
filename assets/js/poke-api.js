@@ -21,7 +21,10 @@ function convertPokeApiIdToPokemon(pokemonPokeApi) {
     const pokemon = new Pokemon();
     pokemon.number = pokemonPokeApi.id;
     pokemon.name = pokemonPokeApi.forms[0].name;
-    pokemon.stats = pokemonPokeApi.stats;
+    pokemon.stats = pokemonPokeApi.stats.map((stat) => {return {name: stat.stat.name, value: stat.base_stat}});
+    pokemon.photo = pokemonPokeApi.sprites.other.dream_world.front_default
+    pokemon.types = pokemonPokeApi.types.map((typeSlot) => typeSlot.type.name)
+    return pokemon;
 }
 
 pokeApi.getPokemonDetail = (pokemon) => {
@@ -33,8 +36,8 @@ pokeApi.getPokemonDetail = (pokemon) => {
 pokeApi.getPokemonId = (id) => {
     return fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
             .then((response) => response.json())
-            .then(convertPokeApiIdToPokemon)
-            .then((pokemonModel) => pokemonModel);
+            .then(convertPokeApiIdToPokemon).then((result) => result);
+            
 }
 
 pokeApi.getPokemons = (offset = 0, limit = 5) => {
