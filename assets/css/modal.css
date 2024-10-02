@@ -56,6 +56,7 @@
     width: 100%;
     height: 180px;
     margin: 1.5rem auto;
+    filter: drop-shadow(10px 10px 15px rgb(36, 36, 36));
 }
 
 .stats {
