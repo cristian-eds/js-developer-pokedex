@@ -25,6 +25,7 @@ body {
 
 .hide {
     display: none;
+    transition: .5s;
 }
 
 .normal {

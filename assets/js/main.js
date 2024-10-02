@@ -24,7 +24,7 @@ observer.observe(modal, { childList: true });
 function convertPokemonToLi(pokemon) {
     return `
         <li id="pokemon-${pokemon.number}" class="pokemon ${pokemon.types[0]}">
-            <span class="number">#${pokemon.number}</span>
+            <span class="number">#${formatNumberToPadStart(pokemon.number)}</span>
             <span class="name">${pokemon.name}</span>
 
             <div class="detail">
@@ -45,17 +45,22 @@ function convertPokemonToContentModal(pokemon) {
             <header>
                 <section>
                     <h2>${pokemon.name}</h2>
-                    <span>${pokemon.number}</span>
+                    <span>#${formatNumberToPadStart(pokemon.number)}</span>
                 </section>
                 <button id="close">
                     <span class="close">X</span>
                 </button>
             </header>
-            <img src="${pokemon.photo}" alt="${pokemon.name}">
-            <h3>Stats</h3>
-            <ul class="stats">
-                ${pokemon.stats.map((stat) => `<li> ${stat.name}: ${stat.value}</li>`).join('')}
-            </ul>
+            <section class="modal-details">
+                <img src="${pokemon.photo}" alt="${pokemon.name}">
+                <div>
+                    <h3>Stats</h3>
+                    <ul class="stats">
+                        ${pokemon.stats.map((stat) => `<li> ${stat.name}: ${stat.value}</li>`).join('')}
+                    </ul>
+                </div>
+            </section>
+            
         </div>
     `
 }
